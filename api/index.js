@@ -10,7 +10,7 @@ const {
 } = require('./middlewares/error.handler');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 //middleware de express
 app.use(express.json());
@@ -34,11 +34,11 @@ const options = {
 app.use(cors(options));
 
 // Definir ruta
-app.get('/', (request, response) => {
+app.get('/api/', (request, response) => {
   response.send('Hello, my first server in Express');
 });
 
-app.get('/new_endpoint', (request, response) => {
+app.get('/api/new_endpoint', (request, response) => {
   response.send('Hello, i am new endpoint');
 });
 
