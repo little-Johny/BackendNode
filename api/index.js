@@ -26,9 +26,13 @@ const whiteList = [
 
 const options = {
   origin: (origin, callback) => {
-    whiteList.includes(origin)
-      ? callback(null, true)
-      : callback(new Error(`Origin ${origin} Not allowed`));
+    if (!origin || whiteList.includes(origin)) {
+      // Permitir solicitudes sin origin o de la lista blanca
+      callback(null, true);
+    } else {
+      // Bloquear otras solicitudes
+      callback(new Error(`Origin ${origin} Not allowed`));
+    }
   },
 };
 app.use(cors(options));
